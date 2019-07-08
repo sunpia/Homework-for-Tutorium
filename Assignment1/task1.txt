@@ -1,0 +1,2 @@
+I can use some command in Ubuntu such as "sudo apt-get install [programm]" to install a programm in my laptop. The process is saved In picture P1.png
+
