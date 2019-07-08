@@ -1,0 +1,1 @@
+In Ubuntu we can use apt to manage package.
