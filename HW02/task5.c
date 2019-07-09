@@ -27,8 +27,6 @@ void main() {
 		array[i] = n-i;
 	}
 	qsort(array,n+1,sizeof(array[0]),cmp);
-	for (int i=0;i<=n;i++){
-		printf("%d\t",array[i]);
-	}
+	outputT5(array,n+1);
 }
 	
