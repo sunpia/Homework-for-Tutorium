@@ -1,0 +1,2 @@
+#include <stdio.h> refer the file stdio.h from compiler's library file.
+#include "output.h0" refer the file from relative path.
