@@ -17,10 +17,8 @@ sav *read(int *number){
 	char c;
 	int num = 0;
 	while(1){
-		system("stty raw");
-		char c;
 		c = getchar();
-		if(c == '\r'){
+		if(c == '\n'){
 			break;
 		}else{	
 			if(num%10==0 && num != 0){
@@ -33,9 +31,7 @@ sav *read(int *number){
 			p->str[num%10] = c;
 		}
 		num++;
-		system("stty cooked");
 	}
-	printf("\n");
 	*number = num;
 	return head;
 }
