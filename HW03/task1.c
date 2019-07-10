@@ -49,6 +49,6 @@ void delet(sav *head){
 void main() {
 	int num;
 	sav *head = read(&num);
-	outputT2(num);
+	outputT1(num);
 	delet(head);		
 }
