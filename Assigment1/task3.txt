@@ -1,0 +1,5 @@
+a) I use vim as my editor
+
+b) I use command :wq to save a file and exit the editor
+
+c) I can use yy to copy the whole line and use p to paste the text.And I use comand :/word to find the word that I want to find.  

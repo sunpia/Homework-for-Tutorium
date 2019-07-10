@@ -1,0 +1,13 @@
+a). My dirctory is as followed:(use command pwd to get it)
+   /srv/home/hsun
+
+b). The shell I used is bash, I use command echo $SHELL to get it.
+
+c). I use command ls --help get a lot of information about ls,I choose two of them and explain them:
+	1. ls -X :sort alphabetically by entry extension
+	2. ls -i :print the index number of each file
+
+d). We can use command wc /proc/cpuinfo to get the information.
+    It has 1040 line
+
+e). The modules Release is 4.0.0
