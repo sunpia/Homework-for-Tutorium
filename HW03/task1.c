@@ -2,23 +2,21 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "output.h"
-//In this programm I use linklist to store the string, so it can more than 256 characters
+//In this programm I use linklist to store the string, so it can be more than 256 characters
 typedef struct savechar{
 	struct savechar *next;
 	char str[10];
 	bool full;
 }sav;
-sav *read(int *number){
+sav *read(char *arg[],int *number){
 	sav *head, *p;
 	p = (sav*)malloc(sizeof(sav));
 	p -> full = false;
 	p -> next = NULL;
 	head = p;
-	char c;
 	int num = 0;
 	while(1){
-		c = getchar();
-		if(c == '\n'){
+		if(arg[0][num] == '\n'){
 			break;
 		}else{	
 			if(num%10==0 && num != 0){
@@ -28,7 +26,7 @@ sav *read(int *number){
 				p->next =NULL;
 				p->full = false;
 			}
-			p->str[num%10] = c;
+			p->str[num%10] = arg[0][num];
 		}
 		num++;
 	}
@@ -42,9 +40,11 @@ void delet(sav *head){
 	delet(p);
 	}
 }
-void main() {
+int main(int argc, char *argv[]) {
 	int num;
-	sav *head = read(&num);
+//	sav *head = read(argv,&num);
+	printf("%s",argv[1]);
 	outputT1(num);
-	delet(head);		
+//	delet(head);		
+	return 0;
 }
