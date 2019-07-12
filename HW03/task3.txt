@@ -1,0 +1,17 @@
+a)What is the size of variable p on Euler?
+	The size of p is 12*4=48 bit.
+
+b)What is the address of p?
+	0x7fffffffd6a8	
+
+c)What is the address of c?
+	0x7fffffffd6a7
+
+d)What is the value of arr[0] after the assignment on line 16?
+	10
+
+e)What is the value of arr[0] at the end of the program?
+	266
+
+f)Explain why the value of arr[0] changes
+	Before line 16 the value of arr[0] is 0x0000000a(10), because of the length of char is 1 byte and int is 4 byte so the code on line 16 only change the value of arr[0] to 0x0000010a(266)(the order of data in memory is inverse).

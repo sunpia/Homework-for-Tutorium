@@ -28,5 +28,6 @@ int main(int arc,char *arcv[]) {
 	qsort(array,n+1,sizeof(array[0]),cmp);
 	outputT5(array,n+1);
 	free(array);
+	return 0;
 }
 	
