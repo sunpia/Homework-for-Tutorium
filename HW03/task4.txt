@@ -1,0 +1,32 @@
+in one or two sentences, highlight what the following types of testing try to accomplish:
+1)Unit Testing
+	Unit testing test induvidual units of source code to ensure that a section of an application meets its design and behaves as intended.
+	
+2)Integration Testing
+	Integration testing is the phase in software testing in which induvidual software moduls are combined and tested as a group.
+
+3)Functional Testing
+	Functional testing is a type of black-box testing. It is conducted to evaluate the compliance of a system or component with specified functional requirements.
+
+4)End-to-end Testing
+	End-to-end testing is a methodology used to test whether the flow of an application is performing as designed from start to finish. The purpose of carrying out end-to-end tests is to identify system dependencies and to ensure that the right information is passed between various system components and systems.	
+
+5)Performance Testing
+	Performance Testing is defined as a type of software testing to ensure software applications will perform well under their expected workload.
+
+6)Usability Testing
+	Usability testing is a way to see how easy to use something is by testing it with real users.
+
+7)Acceptance Testing
+	acceptance testing is a test conducted to determine if the requirements of a specification or contract are met. It may involve chemical tests, physical tests, or performance tests.
+
+8)Beta Testing
+	In software development, a beta test is the second phase of software testing in which a sampling of the intended audience tries the product out.
+
+************************************************************
+some other type of testing
+a)System Testing
+	System testing tests a completely integrated system to verify that the system meets its requirements.
+
+b)Installation Testing
+	Most software systems have installation procedures that are needed before they can be used for their main purpose. Testing these procedures to achieve an installed software system that may be used is known as installation testing.
