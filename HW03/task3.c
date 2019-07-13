@@ -3,8 +3,7 @@ int main() {
 	char c;
 	short s;
 	int *p;
-	int arr[2];
-	
+	int arr[2];	
 	p = &d;
 	*p = 10;
 	c = (char)1;

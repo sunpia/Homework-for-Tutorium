@@ -13,14 +13,14 @@ double norm2(double *c,int n){
 void main(){
 	clock_t start, end;
 	double cpu_time_used;
-	start = clock();
 	double *A = (double*)malloc(1000*1000*sizeof(double));
 	randomT2(A);
 	double *B = (double*)malloc(1000*sizeof(double));
 	B[0]=0.5;
 	for(int i=1;i<999;i++){
 		B[i]=B[i-1]*(-1);
-	}
+	}	
+	start = clock();
 	double *C = (double*)malloc(1000*sizeof(double));
 	for(int i=0;i<999;i++){
 		for(int j=0;j<999;j++){
