@@ -1,7 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "randoms.c"
+#include "../randoms/randoms.c"
 #include <cuda.h>
 
 #define PI 3.1415926535
@@ -17,7 +17,9 @@ __global__ void kernel1(float *inarray,float *outarray, int R, int N)
 		float *temp=(float*)malloc((2*R+1)*sizeof(float));
 		for(int i = -R;i<R+1;i++)
 		{	
-			temp[i+R]=inarray[treadid+i]*WEIGHT(R,i);
+			if(treadid+i>=0)
+			{temp[i+R]=inarray[treadid+i]*WEIGHT(R,i);}
+			else{temp[i+R] = 0;}
 		}
 		int offset = R*2+1;
 		while(offset!=0){
@@ -42,15 +44,37 @@ __global__ void kernel1(float *inarray,float *outarray, int R, int N)
 
 __global__ void kernel2(float *inarray,float *outarray, int R, int N)
 {
-	__shared__ mem[1024+42];
+	const int size = 1024;
+	__shared__ float mem[size+42];
 	int treadinbox =threadIdx.x+threadIdx.y*blockDim.x;
 	int treadid = threadIdx.x+threadIdx.y*blockDim.x+(blockIdx.x+blockIdx.y*gridDim.x)*(blockDim.x*blockDim.y);  
 	if(treadid<N){
-
+		mem[21+treadinbox] = inarray[treadid];
+		if(treadinbox<R){
+			if(treadid-R>0){
+				
+				mem[21-R+treadinbox] = inarray[treadid-R];	
+			}else{
+				
+				mem[21-R+treadinbox] = 0;}
+		}
+		if(treadinbox>N-R){
+			if(treadid+R<N){
+				mem[treadinbox+R+21] = inarray[treadid+R];	
+			}else{mem[R+treadinbox+21] = 0;}
+		}
+	}
+	__syncthreads();
+//	if(treadid == 0){
+//		for (int i=0;i<size+2*R;i++){	
+//			printf("%f\n",mem[i+21-R]);
+//		}
+//	}	
+	if(treadid<N){
 		float *temp=(float*)malloc((2*R+1)*sizeof(float));
 		for(int i = -R;i<R+1;i++)
 		{	
-			temp[i+R]=inarray[treadid+i]*WEIGHT(R,i);
+			temp[i+R]=mem[treadinbox+21+i]*WEIGHT(R,i);
 		}
 		int offset = R*2+1;
 		while(offset!=0){
@@ -119,9 +143,11 @@ int main(int argc,char *argcv[]){
 	//	start = clock();
 	int N,R,seed,s;
 	read(argc,argcv,&N,&R,&seed,&s);
-	int gridlen = MIN(64, find2times(N/32/16));
-	int gridwid = find2times(N/32/16/gridlen);
-	dim3 grid(gridwid,gridlen,1), block(32,16,1);
+	int blockwid = 32;
+	int blocklen = 32;
+	int gridlen = MIN(64, find2times(N/blockwid/blocklen));
+	int gridwid = find2times(N/blockwid/blocklen/gridlen);
+	dim3 grid(gridwid,gridlen,1), block(blockwid,blocklen,1);
 
 	float *inArr = (float*)malloc(N*sizeof(float));	
 	float *outArr = (float*)malloc(N*sizeof(float));
