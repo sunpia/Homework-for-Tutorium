@@ -136,6 +136,7 @@ int main(int argc,char *argcv[]){
 	cudaFree(devInArr1);
 	cudaFree(devInArr2);
 	cudaFree(devOutArr);
+	cudaDeviceReset();
 	return 0;
 
 }

@@ -27,37 +27,68 @@ __global__ void kernel1(double *inarray,double *outarray, int R, int N)
 
 __global__ void kernel2(double *inarray,double *outarray, int R, int N)
 {
-	const int size = 1024;
-	__shared__ double mem[size+42];
+	int blockid = blockIdx.x+blockIdx.y*gridDim.x;  
 	int treadinbox =threadIdx.x+threadIdx.y*blockDim.x;
-	int treadid = threadIdx.x+threadIdx.y*blockDim.x+(blockIdx.x+blockIdx.y*gridDim.x)*(blockDim.x*blockDim.y);  
-	if(treadid<N){
-		mem[21+treadinbox] = inarray[treadid];
-		if(treadinbox<R){
-			if(treadid-R>0){
-				mem[21-R+treadinbox] = inarray[treadid-R];	
-			}else{
-				mem[21-R+treadinbox] = 0;
-			}
-		}
-		if(treadinbox>size-R-1){
-			if(treadid+R<N){
-				mem[treadinbox+R+21] = inarray[treadid+R];
-			}else{
-				mem[R+treadinbox+21] = 0;
-			}
+	const int Num=2*R+1;
+	__shared__ double mem[42];
+	if(blockid<N){
+		int i = treadinbox-R;
+		if(blockid+i>=0 && blockid+i<N)
+		{	
+			mem[treadinbox]=inarray[blockid+i]*WEIGHT(R,i);
+		}else{
+			mem[treadinbox]=0;
 		}
 	}
 	__syncthreads();
-	if(treadid<N){
+
+	if(blockid<N){
+
+	int offeset = Num;
+
+	while(offeset != 1){
+		if(offeset%2==1){
+			offeset /=2;
+			if(treadinbox==0){mem[0]+=mem[2*offeset];}
+		}else{
+			offeset /=2;
+		}
+		if(treadinbox<offeset){mem[treadinbox]+=mem[treadinbox+offeset];}
+		__syncthreads();
+	}
+	outarray[blockid]=mem[0];
+	}
+	/*	const int size = 1024;
+		__shared__ double mem[size+42];
+		int treadinbox =threadIdx.x+threadIdx.y*blockDim.x;
+		int treadid = threadIdx.x+threadIdx.y*blockDim.x+(blockIdx.x+blockIdx.y*gridDim.x)*(blockDim.x*blockDim.y);  
+		if(treadid<N){
+		mem[21+treadinbox] = inarray[treadid];
+		if(treadinbox<R){
+		if(treadid-R>0){
+		mem[21-R+treadinbox] = inarray[treadid-R];	
+		}else{
+		mem[21-R+treadinbox] = 0;
+		}
+		}
+		if(treadinbox>size-R-1){
+		if(treadid+R<N){
+		mem[treadinbox+R+21] = inarray[treadid+R];
+		}else{
+		mem[R+treadinbox+21] = 0;
+		}
+		}
+		}
+		__syncthreads();
+		if(treadid<N){
 		double temp=0;
 		for(int i = -R;i<R+1;i++)
 		{	
-			temp+=mem[treadinbox+21+i]*WEIGHT(R,i);
+		temp+=mem[treadinbox+21+i]*WEIGHT(R,i);
 		}
 		outarray[treadid]=temp;
-	}
-
+		}
+	 */
 }
 
 
@@ -89,9 +120,9 @@ int main(int argc,char *argcv[]){
 	float elapsedTime = 0.0;
 	int N,R,seed,s;
 	read(argc,argcv,&N,&R,&seed,&s);
-	int blockwid = 32;
-	int blocklen = 32;
-	int gridlen = MIN(512, find2times(N/blockwid/blocklen));
+	int blockwid = 1;
+	int blocklen = 1;
+	int gridlen = MIN(1024, find2times(N/blockwid/blocklen));
 	int gridwid = find2times(N/blockwid/blocklen/gridlen);
 	dim3 grid(gridwid,gridlen,1), block(blockwid,blocklen,1);
 
@@ -106,18 +137,18 @@ int main(int argc,char *argcv[]){
 	//copy data to device	
 	cudaMemcpy(devInArr,inArr,sizeof(double)*N,cudaMemcpyHostToDevice);
 	//calc 
-	
+
 	cudaEventRecord(start,0);
 	if(s==0){	
-		kernel1 <<<grid,block>>>(devInArr,devOutArr,R,N);
+		kernel1 <<<grid,1>>>(devInArr,devOutArr,R,N);
 	}else{
-		kernel2 <<<grid,block>>>(devInArr,devOutArr,R,N);
+		kernel2 <<<grid,2*R+1>>>(devInArr,devOutArr,R,N);
 	}
 	cudaEventRecord(end,0);
 	cudaEventSynchronize(end);
 	cudaEventElapsedTime(&elapsedTime,start,end);
 
-    
+
 	cudaMemcpy(outArr,devOutArr,N*sizeof(double),cudaMemcpyDeviceToHost);
 	double res=0;
 	for(int i=0;i<N;i++){
