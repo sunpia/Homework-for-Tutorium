@@ -63,7 +63,6 @@ int main(int argc,char *argcv[]){
 	thrust::device_vector<int> index(npartitions,1);
 	index[0]=0;
 	thrust::inclusive_scan(index.begin(),index.end(),index.begin());
-
 	double rest=thrust::transform_reduce(
 			thrust::make_zip_iterator(thrust::make_tuple(index.begin(), coe.begin())),
 			thrust::make_zip_iterator(thrust::make_tuple(index.end(), coe.end())),
@@ -77,7 +76,5 @@ int main(int argc,char *argcv[]){
 	std::cout.precision(6);
 	std::cout<<cpu_time<<std::endl;
 
-//	printf("%.15f %.15f\n",fabs(res-32.121040666358),res);
-//	printf("%f ms\n" ,cpu_time);
 }
 
