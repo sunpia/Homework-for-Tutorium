@@ -14,16 +14,6 @@ void read(int argc,char* arcgv[], int *npartitions){
 	}
 }
 
-int getCoefficient(int num,int npartitions){
-	int coeff[]={17,59,43,49,48};
-	if(num<4)
-	{
-		return coeff[num];
-	}else if(num>npartitions-4){
-		return coeff[npartitions-num];
-	}else
-	{return 48;}
-}
 
 double simpsion(int npartitions){
 	double h;
@@ -31,7 +21,17 @@ double simpsion(int npartitions){
 	double sum = 0;
 #pragma acc parallel loop reduction(+:sum)
 	for(int i =0;i<npartitions+1;i++){
-		sum+=getCoefficient(i,npartitions)*FUN(i*h);
+	int coe;
+	int coeff[]={17,59,43,49};
+	if(i<4)
+	{
+		coe= coeff[i];
+	}else if(i>npartitions-4){
+		coe= coeff[npartitions-i];
+	}else
+	{coe= 48;}
+
+		sum+=coe*FUN(i*h);
 	
 	}
 	return sum*h/48;
