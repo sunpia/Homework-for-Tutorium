@@ -45,7 +45,8 @@ void read(int argc,char* arcgv[], int *seed, int *target){
 		*seed=atoi(arcgv[1]);
 		*target=atoi(arcgv[2]);
 	}else{
-		printf("Argument donnot enough!");
+		printf("Improper input arguments. Please enter 2 inputs (seed,target).");
+		exit(1);
 	}
 }
 

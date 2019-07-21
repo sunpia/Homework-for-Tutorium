@@ -1,0 +1,8 @@
+a) 	Nano
+b) 	Ctrl + O: Save
+	Ctrl + X: Exit
+c)	Paste: Ctrl + U
+	
+	Copy Line or highlighted section: Alt + 6
+	
+	Search for a String or Regular Expression: Ctrl + W

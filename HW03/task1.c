@@ -1,23 +1,31 @@
-#include <stdio.h>
 #include "output.h"
-//In this programm I use linklist to store the string, so it can be more than 256 characters
-int conting(char *argv){
-	int num =0;
-	while(*argv != '\0'){
-		num++;
-		argv++;
+
+int countString(char *cstring) {
+	int len = 0;
+	while (*cstring != '\0') {
+		len++;
+		cstring++;
 	}
-	return num;
+	return len;
 }
-int main(int argc, char *argv[]) {
-	int num =0;
-	if( argc == 2 ) {
-		num=conting(argv[1]);
+
+int main(int argc, char* argv[]) {
+
+	if (argc == 2) {
+		printf("The argument supplied is %s\n", argv[1]);
 	}
-	else if( argc > 2 ) {
+	else if (argc > 2) {
 		printf("Too many arguments supplied.\n");
-	return 0;
+		exit(1);
 	}
+	else {
+		printf("One argument expected.\n");
+		exit(1);
+	}
+	// int n = strlen(argv[1]);
+
+	int num = countString(argv[1]);
 	outputT1(num);
+	//printf("Length of String: %d", num);
 	return 0;
 }

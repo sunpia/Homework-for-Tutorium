@@ -1,0 +1,8 @@
+a) 	Using the "pwd" command: /srv/home/jschneider
+b) 	"ps | grep $$": 20644 pts/46   00:00:00 bash
+	"which bash": /usr/bin/bash
+c)	ls --help
+	ls -c sort by ctime (time of last modification of file status information); with -l: show ctime and sort by name; otherwise: sort by ctime, newest first
+	ls -S sort by file size
+d)	wc -l /proc/cpuinfo: 1040
+e) 	module --version gcc: Modules Release 4.0.0 (2017-10-16)

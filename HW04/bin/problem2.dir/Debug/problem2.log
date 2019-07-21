@@ -1,0 +1,8 @@
+﻿  Compiling CUDA source file ..\problem2.cu...
+  
+  C:\Users\Jo\Documents\# Studium\SS19\SummerSchool\Homework\Homework-for-Tutorium\HW04\bin>"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\bin\nvcc.exe" -gencode=arch=compute_35,code=\"sm_35,compute_35\" --use-local-env -ccbin "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.21.27702\bin\HostX64\x64" -x cu   -I"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\include"     --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static -Xcompiler="/EHsc -Zi -Ob0" -g   -D_WINDOWS -D"CMAKE_INTDIR=\"Debug\"" -D"CMAKE_INTDIR=\"Debug\"" -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdproblem2.dir\Debug\vc142.pdb /FS /Zi /RTC1 /MDd /GR" -o problem2.dir\Debug\problem2.obj "C:\Users\Jo\Documents\# Studium\SS19\SummerSchool\Homework\Homework-for-Tutorium\HW04\problem2.cu" 
+  problem2.cu
+C:\Users\Jo\Documents\# Studium\SS19\SummerSchool\Homework\Homework-for-Tutorium\HW04\../randoms/randoms.c(27): warning C4244: "=": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+C:\Users\Jo\Documents\# Studium\SS19\SummerSchool\Homework\Homework-for-Tutorium\HW04\../randoms/randoms.c(47): warning C4244: "=": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+C:\Users\Jo\Documents\# Studium\SS19\SummerSchool\Homework\Homework-for-Tutorium\HW04\../randoms/randoms.c(68): warning C4244: "=": Konvertierung von "time_t" in "unsigned int", möglicher Datenverlust
+  problem2.vcxproj -> C:\Users\Jo\Documents\# Studium\SS19\SummerSchool\Homework\Homework-for-Tutorium\HW04\bin\Debug\problem2.exe

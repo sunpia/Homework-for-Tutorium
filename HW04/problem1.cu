@@ -91,15 +91,20 @@ __global__ void kernel2(double *inarray,double *outarray, int R, int N)
 	 */
 }
 
-
-void read(int argc,char* arcgv[], int *N, int *R, int *seed ,int *s){
-	if( argc == 5){
-		*N=atoi(arcgv[1]);
-		*R=atoi(arcgv[2]);
-		*seed=atoi(arcgv[3]);
-		*s=atoi(arcgv[4]);
-	}else{
-		printf("Argument donnot enough!");
+void read(int argc, char* arcgv[], int* N, int* R, int* seed, int* s) {
+	if (argc == 5) {
+		*N = atoi(arcgv[1]);
+		*R = atoi(arcgv[2]);
+		*seed = atoi(arcgv[3]);
+		*s = atoi(arcgv[4]);
+		if (*N < (2 * *R + 1)) {
+			printf("Invalid choice of N (%d) and R (%d), please define accordingly: N>=2*R+1.", N, R);
+			exit(1);
+		}
+	}
+	else {
+		printf("Improper input arguments. Please enter 4 inputs (N,R,seed,s).");
+		exit(1);
 	}
 }
 
