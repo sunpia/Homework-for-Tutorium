@@ -1,0 +1,2 @@
+<stdio.h>	Search in the global include paths	(System Headers)
+"output.h"	Local search in the current file's path	(Own Headers)

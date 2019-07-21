@@ -1,0 +1,12 @@
+Load Standard IO-Library
+
+Function A increases value of input argument y (integer) by one and returns the value to the output
+
+Function B input argument y is a pointer to an integer variable
+
+Function C input argument y is a pointer as well, the value of the pointed integer variable is modified to 6
+
+Output Lines:
+5
+5
+6
